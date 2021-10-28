@@ -18,7 +18,7 @@ let myFavoriteSport = 'настольный-тенис, футбол';
 let myWeight = 75;
 let myHeight = 174;
 let myJavaScriptSkill = 0.01;
-let myGrade = null;
+let myGrade = undefined;
 let myNumber = 9007199254740993n;
 let myPassword = Symbol('****');
 
