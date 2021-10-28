@@ -40,7 +40,7 @@ console.log('Цвет моих глаз: ' + MY_EYE_COLOR + ' (' + typeof(MY_EYE
 console.log('Моё любимое число: ' + myNumber + ' (' + typeof(myNumber) + ')' + ' [переменная];');
 console.log('Мой любимый пароль:', myPassword, '(' + typeof(myPassword) + ')' + ' [переменная];');
 console.log('Я курю?: ' + ME_AND_SMOKE + ' (' + typeof(ME_AND_SMOKE) + ')' + ' [константа];');
-console.log('Я принимаю пищу?: ' + ME_AND_FOOD + ' (' + typeof(ME_AND_FOOD) + ')' + ' [константа];');
+console.log('Я вкушаю пищу?: ' + ME_AND_FOOD + ' (' + typeof(ME_AND_FOOD) + ')' + ' [константа];');
 console.log('Мой любимый вид спорта: ' + myFavoriteSport + ' (' + typeof(myFavoriteSport) + ')' + ' [переменная];');
 console.log('Мой скил в JavaScript на данный момент: ' + myJavaScriptSkill * 100 + '%' + ' (' + typeof(myJavaScriptSkill) + ')' + ' [переменная];');
 console.log('Учебный путь моей жизни: ' + STUDY_PATH_OF_MY_LIFE + ' (' + typeof(STUDY_PATH_OF_MY_LIFE) + ')' + ' [константа];');
