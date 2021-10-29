@@ -3,7 +3,7 @@ let distance_km = prompt('Введите растояние (N), которое 
 distance_km = Number(distance_km);
 
 if (isNaN(distance_km) || 0 >= distance_km) {
-    console.error(`N = ${distance_km} км. (${typeof(distance_km)});`);
+    console.error(`N = ${distance_km} км. (${typeof(distance_km)}).`);
     alert('Веденное Вами значение растояния (N) не являеться положительным числом больше, которое 0. Расчет остановлен!');
 } else {
     console.log(`N = ${distance_km} км. (${typeof(distance_km)});`);
@@ -12,7 +12,7 @@ if (isNaN(distance_km) || 0 >= distance_km) {
     wheel_diameter_inch = Number(wheel_diameter_inch);
 
     if (isNaN(wheel_diameter_inch) || 0 >= wheel_diameter_inch) {
-        console.error(`D = ${wheel_diameter_inch}" (${typeof(wheel_diameter_inch)});`);
+        console.error(`D = ${wheel_diameter_inch}" (${typeof(wheel_diameter_inch)}).`);
         alert('Веденное Вами значение диаметра колеса (D) не являеться положительным числом, которое больше 0. Расчет остановлен!');
     } else {
         console.log(`D = ${wheel_diameter_inch}" (${typeof(wheel_diameter_inch)});`);
@@ -21,7 +21,7 @@ if (isNaN(distance_km) || 0 >= distance_km) {
         number_of_wheels = Number(number_of_wheels);
 
         if (isNaN(number_of_wheels) || 0 >= number_of_wheels) {
-            console.error(`x = ${number_of_wheels} шт. (${typeof(number_of_wheels)});`);
+            console.error(`x = ${number_of_wheels} шт. (${typeof(number_of_wheels)}).`);
             alert('Веденное Вами значение количества колес у машины не являеться положительным числом, которое больше 0. Расчет остановлен!');
         } else if (number_of_wheels > 24) {
             console.warn(`x = ${number_of_wheels} шт. (${typeof(number_of_wheels)});`);
@@ -29,7 +29,7 @@ if (isNaN(distance_km) || 0 >= distance_km) {
             let settlement_confirmation = prompt('Но если Вы хотите продолжить и посчитать Вашу ШАЙТАН-МАШИНУ введите "+": ', '');
             if (settlement_confirmation !=='+') {
                 console.error(`Отклонение: ${settlement_confirmation} (${settlement_confirmation !=='+'});`);
-                console.error(`x = ${number_of_wheels} шт. (${typeof(number_of_wheels)});`);
+                console.error(`x = ${number_of_wheels} шт. (${typeof(number_of_wheels)}).`);
                 alert('ШАЙТАН-МАШИНА - забракована. Расчет остановлен!');
             } else {
                 const PI = 3.141592653589793; //Число ПИ
@@ -51,7 +51,7 @@ if (isNaN(distance_km) || 0 >= distance_km) {
                 console.log(`n = ${number_of_turns_of_one_wheel} об. (${typeof(number_of_turns_of_one_wheel)});`);
 
                 let number_of_turns_of_all_wheels = number_of_turns_of_one_wheel * number_of_wheels; //Количество оборотов всех колес
-                console.log(`n_общ. = ${number_of_turns_of_all_wheels} об. (${typeof(number_of_turns_of_all_wheels)});`);
+                console.log(`n_общ. = ${number_of_turns_of_all_wheels} об. (${typeof(number_of_turns_of_all_wheels)}).`);
 
                 alert (`Начальные данные:
                 Растояние, которое проехала машина: N = ${distance_km} км.
@@ -91,7 +91,7 @@ if (isNaN(distance_km) || 0 >= distance_km) {
             console.log(`n = ${number_of_turns_of_one_wheel} об. (${typeof(number_of_turns_of_one_wheel)});`);
 
             let number_of_turns_of_all_wheels = number_of_turns_of_one_wheel * number_of_wheels; //Количество оборотов всех колес
-            console.log(`n_общ. = ${number_of_turns_of_all_wheels} об. (${typeof(number_of_turns_of_all_wheels)});`);
+            console.log(`n_общ. = ${number_of_turns_of_all_wheels} об. (${typeof(number_of_turns_of_all_wheels)}).`);
 
             alert (`Начальные данные:
             Растояние, которое проехала машина: N = ${distance_km} км.

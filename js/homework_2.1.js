@@ -1,7 +1,8 @@
-let days = prompt('Введите число', '0');
+let days = prompt('Сколько было прекрасных дней? Введите число', '0');
 days = Number(days);
 
 if (isNaN(days) || 0 > days) {
+    console.error(`Дней: ${days} (${typeof(days)}).`);
     alert('Веденное значение не являеться положительным числом');
 } else {
     let remainder_of_10 = days % 10;
