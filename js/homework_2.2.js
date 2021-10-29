@@ -1,25 +1,31 @@
+alert('Это задача по подсчету количества оборотов колес от пройденного пути автомобиля. Начнем?');
 let distance_km = prompt('Введите растояние (N), которое проехала машина в километрах: ', '0');
 distance_km = Number(distance_km);
 
 if (isNaN(distance_km) || 0 > distance_km) {
-    alert('Веденное значение не являеться положительным числом');
+    console.error(`N = ${distance_km} км. (${typeof(distance_km)});`);
+    alert('Веденное Вами значение растояния (N) не являеться положительным числом. Расчет остановлен.');
 } else {
     console.log(`N = ${distance_km} км. (${typeof(distance_km)});`);
     
-    let wheel_diameter_inch = prompt('Введите диаметр (D) колеса машины в дюймах: ', '0');
+    let wheel_diameter_inch = prompt('Введите диаметр колеса (D) машины в дюймах: ', '0');
     wheel_diameter_inch = Number(wheel_diameter_inch);
 
     if (isNaN(wheel_diameter_inch) || 0 > wheel_diameter_inch) {
-        alert('Веденное значение не являеться положительным числом');
+        console.error(`D = ${wheel_diameter_inch}" (${typeof(wheel_diameter_inch)});`);
+        alert('Веденное Вами значение диаметра колеса (D) не являеться положительным числом. Расчет остановлен.');
     } else {
         console.log(`D = ${wheel_diameter_inch}" (${typeof(wheel_diameter_inch)});`);
 
         let number_of_wheels = prompt('Введите количество колес у машины от 1 (Motoruota) до 24 (тягач "Целина"): ', '0');
         number_of_wheels = Number(number_of_wheels);
 
-        if (isNaN(number_of_wheels) || 0 > wheel_diameter_inch || wheel_diameter_inch > 25) {
-            // console.log(a, typeof(a));
-            alert('Веденное значение не являеться положительным числом');
+        if (isNaN(number_of_wheels) || 0 > number_of_wheels) {
+            console.error(`x = ${number_of_wheels} шт. (${typeof(number_of_wheels)});`);
+            alert('Веденное Вами значение количества колес у машины не являеться положительным числом. Расчет остановлен.');
+        } else if (number_of_wheels > 24) {
+            console.warn(`x = ${number_of_wheels} шт. (${typeof(number_of_wheels)});`);
+            alert('Слишком много колес!');
         } else {
             console.log(`x = ${number_of_wheels} шт. (${typeof(number_of_wheels)});`);
             
@@ -61,3 +67,4 @@ if (isNaN(distance_km) || 0 > distance_km) {
         }
     }
 }
+
