@@ -21,7 +21,8 @@ if (isNaN(distance_km) || 0 > distance_km) {
             // console.log(a, typeof(a));
             alert('Веденное значение не являеться положительным числом');
         } else {
-        
+            console.log(`x = ${number_of_wheels} шт. (${typeof(number_of_wheels)});`);
+            
             const PI = 3.141592653589793; //Число ПИ
             console.log(`PI = ${PI} (${typeof(PI)});`);
 
@@ -35,13 +36,13 @@ if (isNaN(distance_km) || 0 > distance_km) {
             console.log(`D = ${wheel_diameter_m} м. (${typeof(wheel_diameter_m)});`);
 
             let wheel_circumference_m = PI * wheel_diameter_m; //Длинна окружности колеса в метрах
-            console.log(`l = ${wheel_circumference_m.toFixed(5)} м. (${typeof(wheel_circumference_m)});`);
+            console.log(`l = ${wheel_circumference_m} м. (${typeof(wheel_circumference_m)});`);
 
             let number_of_turns_of_one_wheel = distance_m / wheel_circumference_m; //Количество оборотов одного колеса
-            console.log(`n = ${number_of_turns_of_one_wheel.toFixed(2)} об. (${typeof(number_of_turns_of_one_wheel)});`);
+            console.log(`n = ${number_of_turns_of_one_wheel} об. (${typeof(number_of_turns_of_one_wheel)});`);
 
             let number_of_turns_of_all_wheels = number_of_turns_of_one_wheel * number_of_wheels; //Количество оборотов всех колес
-            console.log(`n_общ. = ${number_of_turns_of_all_wheels.toFixed(2)} об. (${typeof(number_of_turns_of_all_wheels)});`);
+            console.log(`n_общ. = ${number_of_turns_of_all_wheels} об. (${typeof(number_of_turns_of_all_wheels)});`);
 
             alert (`Начальные данные:
             Растояние, которое проехала машина: N = ${distance_km} км.
