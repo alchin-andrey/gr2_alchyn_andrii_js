@@ -6,7 +6,7 @@
 */
 
 function up_first(str) {
-    if (typeof (str) !== "string") {
+    if (typeof (str) !== 'string') {
         return null;
     }
     let result;

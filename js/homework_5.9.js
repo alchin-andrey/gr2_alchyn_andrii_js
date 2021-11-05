@@ -5,7 +5,7 @@
 */
 
 function get_order(string) {
-    if (typeof string !== "string") {
+    if (typeof string !== 'string') {
         return null;
     }
 
@@ -15,6 +15,6 @@ function get_order(string) {
     result = string_array.join(' ');;
     return result;
 }
-let sentence = "ноты акустика гитара";
+let sentence = 'ноты акустика гитара';
 let result = get_order(sentence);
 console.log(result);

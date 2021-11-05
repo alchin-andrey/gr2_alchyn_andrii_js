@@ -6,7 +6,7 @@
 */
 
 function get_type_file(file_name) {
-    if (typeof file_name !== "string") {
+    if (typeof file_name !== 'string') {
         return null;
     }
 

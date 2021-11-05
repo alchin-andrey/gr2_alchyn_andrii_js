@@ -6,12 +6,12 @@
 */
 
 function get_short_fio(full_fio) {
-    if (typeof full_fio !== "string") {
+    if (typeof full_fio !== 'string') {
         return null;
     }
 
     let result;
-    let fio_array = full_fio.split(" ");
+    let fio_array = full_fio.split(' ');
     if (fio_array.length !== 3) {
         return null;
     }
@@ -21,6 +21,6 @@ function get_short_fio(full_fio) {
     result = `${surname} ${first_letter_of_name}.${first_letter_of_middle_name}.`;
     return result;
 }
-let fio = "Иванов Сергей Петрович";
+let fio = 'Иванов Сергей Петрович';
 let result = get_short_fio(fio);
 console.log(result);

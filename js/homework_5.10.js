@@ -8,7 +8,7 @@ function get_random(arr) {
         return null;
     }
     let result;
-    let random_index = Math.round(Math.random() * arr.length);
+    let random_index = Math.floor(Math.random() * arr.length);
     result = arr[random_index];
     return result;
 }

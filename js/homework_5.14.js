@@ -8,3 +8,19 @@ schedule["8:30"] = "подъём";
 isEmpty(schedule) ; //должно вернуть false
 */
 
+function is_empty(obj) {
+    if (typeof obj !== 'object') {
+        return null;
+    }
+    let result;
+    for (let key in obj) {
+        result = false;
+        return result;
+    }
+    result = true;
+    return result;
+}
+let schedule = {};
+schedule['8:30'] = 'подъём';
+let result = is_empty(schedule);
+console.log(result, typeof result);

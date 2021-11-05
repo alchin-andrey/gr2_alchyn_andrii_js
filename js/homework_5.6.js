@@ -5,7 +5,6 @@
 так чтобы ее длина стала равна maxlength.
 */
 
-
 function truncate(str, maxiength) {
     let result = str;
     if (str.length > maxiength) {
@@ -14,6 +13,5 @@ function truncate(str, maxiength) {
     }
     return result;
 }
-let a = truncate('csqfdwqecewcewcw', 6);
-console.log(a);
-
+let short_word = truncate('Экскаватор', 6);
+console.log(short_word);

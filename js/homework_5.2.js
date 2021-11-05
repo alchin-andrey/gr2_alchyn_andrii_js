@@ -6,7 +6,7 @@
 */
 
 function count_symbol(symbol, string) {
-    if (typeof symbol !== "string" || typeof string !== "string") {
+    if (typeof symbol !== 'string' || typeof string !== 'string') {
         return null;
     }
     let result = 0;

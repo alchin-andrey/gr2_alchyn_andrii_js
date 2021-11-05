@@ -6,7 +6,7 @@
 */
 
 function get_string_length(str) {
-    if (typeof str !== "string") {
+    if (typeof str !== 'string') {
         return null;
     }
     let result = 0;
@@ -18,6 +18,6 @@ function get_string_length(str) {
     }
     return result;
 }
-let sentence = "Потолочный лампо сос";
+let sentence = 'Потолочный лампо сос';
 let result = get_string_length(sentence);
 console.log(result);

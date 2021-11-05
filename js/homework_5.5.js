@@ -6,7 +6,7 @@
 */
 
 function search_string(search, string) {
-    if (typeof search !== "string" || typeof string !== "string") {
+    if (typeof search !== 'string' || typeof string !== 'string') {
         return null;
     }
     let result = 0;
@@ -16,7 +16,7 @@ function search_string(search, string) {
     result = check > 0;
     return result;
 }
-let word = "Дорогу осилит идуЩий";
-let substring = "щи";
+let word = 'Дорогу осилит идуЩий';
+let substring = 'щи';
 let result = search_string(substring, word);
 console.log(result);

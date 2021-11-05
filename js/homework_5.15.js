@@ -25,15 +25,15 @@ let best_student;
 let min_point = Infinity;
 let max_point = -Infinity;
 
-for (let kay in points) {
-    sum_points = sum_points + points[kay];
-    if (points[kay] < min_point) {
-        min_point = points[kay];
-        worst_student = `${kay}: ${points[kay]}`
+for (let key in points) {
+    sum_points = sum_points + points[key];
+    if (points[key] < min_point) {
+        min_point = points[key];
+        worst_student = `${key}: ${points[key]}`
     }
-    if (points[kay] > max_point) {
-        max_point = points[kay];
-        best_student = `${kay}: ${points[kay]}`;
+    if (points[key] > max_point) {
+        max_point = points[key];
+        best_student = `${key}: ${points[key]}`;
     }
 }
 
