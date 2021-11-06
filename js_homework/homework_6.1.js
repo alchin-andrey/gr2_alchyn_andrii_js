@@ -3,6 +3,7 @@
 Напишите функцию get_tomorrow(), которая возвращает завтрашнее число в формате 26 ноября 2019г
 */
 
+
 const MS_SECOND = 1000;
 const MS_MINUTE = MS_SECOND * 60;
 const MS_HOUR = MS_MINUTE * 60;

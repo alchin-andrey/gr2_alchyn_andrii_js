@@ -19,16 +19,12 @@ function find (elem) {
 function gameTown () {
     let lastWord = firstTown.split('');
     lastWord = lastWord.filter (find);
-    console.log (lastWord);
     lastWord = lastWord.pop();
-    console.log (lastWord);
     let firstWord = secondTown.split('');
     firstWord = firstWord.shift();
-    console.log (firstWord);
     result = (lastWord === firstWord);
     return result;
 }
-console.log (result);
 
 if (!String(firstTown) || !String(secondTown)) {
     alert (`Веденные данные не являються городом! Вы проиграли.\nКоличество Ваших очков: ${attempts}`);
