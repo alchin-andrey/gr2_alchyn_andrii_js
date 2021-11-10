@@ -105,7 +105,7 @@ function Сreate_calculator(calculator_name) {
         return result;
     }
 
-    this.cliar_history = function() {
+    this.clear_history = function() {
         this.history = [];
         let result = `История калькулятора "${this.name}" очищена!`
         return result;
@@ -118,7 +118,7 @@ console.log(calc.to_subtract(5, '2', '6', 5));
 console.log(calc.multiply(1, '2', '6', 5));
 console.log(calc.divide(4, '2', '6', 5));
 console.log(calc.history);
-console.log(calc.cliar_history());
+console.log(calc.clear_history());
 console.log(calc.history);
 
 
