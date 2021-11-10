@@ -20,7 +20,7 @@ function get_min(arr){
 let arr_2 = [25, 665, -758, -18, 22, -381, 92];
 let min = arr_2[0];
 
-arr_2.forEach(function get_min_2(arr_2) {
-        if (min > arr_2) min = arr_2;
+arr_2.forEach(function get_min_2(item) {
+        if (min > item) min = item;
     });
 console.log(min);
