@@ -12,7 +12,6 @@
 Например после действия сумма в истории должна появится такая запись: "Мой калькулятор (8.11.2021 20:30): сумма = 10, (5, 5)"
 Калькулятор должен уметь вывести историю действий в консоль и уметь очищать историю действий.
 ps: делайте задание по частям
-
 */
 
 function Сreate_calculator(calculator_name) {
@@ -113,6 +112,8 @@ function Сreate_calculator(calculator_name) {
 }
 
 let calc = new Сreate_calculator('Считака');
+
+// Обычная проверка
 console.log(calc.to_add(1, 2, '6', 5));
 console.log(calc.to_subtract(5, '2', '6', 5));
 console.log(calc.multiply(1, '2', '6', 5));
@@ -121,7 +122,13 @@ console.log(calc.history);
 console.log(calc.clear_history());
 console.log(calc.history);
 
-
+// Проверка по времени
+setTimeout(() => console.log(calc.to_add(1, 2, '6', 5), calc.history), 3000);
+setTimeout(() => console.log(calc.to_subtract(5, '2', '6', 5), calc.history), 20000);
+setTimeout(() => console.log(calc.multiply(1, '2', '6', 5), calc.history), 40000);
+setTimeout(() => console.log(calc.divide(4, '2', '6', 5), calc.history), 61000);
+setTimeout(() => console.log(calc.clear_history(), calc.history), 65000);
+setTimeout(() => console.log(calc.divide(4, '2', '6', 5), calc.history), 70000);
 
 
 
