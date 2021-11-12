@@ -1,5 +1,5 @@
 /* 
-Задача 7
+Задача 8.1
 Написать код, который будет выполнять 4 действия на странице index.html:
 1. Создать 10 квадратов голубого цвета размером 50 на 50 пикселей, и распологает их вертикально.
 2. Изменить цвет каждого квадрата на зеленый, и увеличить размер до 100 на 100 пикселей.
@@ -16,21 +16,20 @@ document.body.style.cssText = `
 
 function create_winter (number) {
     for(let i = 0;i < number;i++){
-        let newdiv = document.createElement('div');
-        newdiv.style.cssText = `
+        let new_div = document.createElement('div');
+        new_div.style.cssText = `
         width: 50px; 
         height: 50px; 
         margin: 5px; 
         background-color: deepskyblue;
         `;
-        document.body.prepend(newdiv);
+        document.body.prepend(new_div);
     }
 }
 
-function change_to_spring () {
-    let change_div = document.getElementsByTagName('div');
-    for(let i = 0;i < change_div.length;i++){
-        change_div[i].style.cssText += `
+function change_to_spring (element) {
+    for(let i = 0;i < element.length;i++){
+        element[i].style.cssText += `
         width: 100px; 
         height: 100px; 
         background-color: seagreen;
@@ -38,44 +37,32 @@ function change_to_spring () {
     }
 }
 
-function change_to_autumn () {
-    let change_div = document.getElementsByTagName('div');
-    for(let i = 0;i < change_div.length;i++){
+function change_to_autumn (element) {
+    for(let i = 0;i < element.length;i++){
         if (i % 3 - 2 === 0) {
-            change_div[i].style.backgroundColor = 'red';
+            element[i].style.backgroundColor = 'red';
         } else {
-            change_div[i].style.backgroundColor = 'yellow';
+            element[i].style.backgroundColor = 'yellow';
         }
     }
 }
 
-function create_night () {
-    let change_div = document.getElementsByTagName('div');
-    for(let i = change_div.length - 1;i >= 0;i--){
-        change_div[i].remove();
+function create_night (element) {
+    for(let i = element.length - 1;i >= 0;i--){
+        element[i].remove();
     }
     document.body.style.backgroundColor = 'black';
 }
 
-setTimeout(() => create_winter(10), 3000);
-setTimeout(() => change_to_spring (), 6000);
-setTimeout(() => change_to_autumn (), 9000);
-setTimeout(() => create_night (), 12000);
 
+let change_div = document.getElementsByTagName('div');
+setTimeout(() => create_winter(10), 3000);
+setTimeout(() => change_to_spring (change_div), 6000);
+setTimeout(() => change_to_autumn (change_div), 9000);
+setTimeout(() => create_night (change_div), 12000);
 
 
 // create_winter(10);
 // change_to_spring ();
 // change_to_autumn ();
 // create_night ();
-
-
-// function create_night () {
-//     let change_div = document.getElementsByTagName('div');
-//     console.log(change_div);
-//     console.log(change_div.textContent);
-//     change_div.textContent = '';
-//     document.body.style.backgroundColor = 'black';
-// }
-
-
