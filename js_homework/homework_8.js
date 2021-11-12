@@ -12,54 +12,72 @@ document.body.style.cssText = `
     display: flex;
     flex-direction: column;
     align-items: center;
-`;
+    `;
 
 function create_winter (number) {
-    for(let i=1;i<=number;i++){
+    for(let i = 0;i < number;i++){
         let newdiv = document.createElement('div');
-        newdiv.style.cssText = ' width: 50px; height: 50px; margin: 5px; background-color: deepskyblue;';
+        newdiv.style.cssText = `
+        width: 50px; 
+        height: 50px; 
+        margin: 5px; 
+        background-color: deepskyblue;
+        `;
         document.body.prepend(newdiv);
     }
 }
 
 function change_to_spring () {
     let change_div = document.getElementsByTagName('div');
-    for(let i=0;i<=change_div.length;i++){
-        console.log(change_div[i]);
-        change_div[i].style.cssText = 'width: 100px; height: 100px; margin: 5px; background-color: seagreen;';
+    for(let i = 0;i < change_div.length;i++){
+        console.log(`перед ${i}, ${change_div[i]}`);
+        change_div[i].style.cssText += `
+        width: 100px; 
+        height: 100px; 
+        background-color: seagreen;
+        `;
     }
 }
 
 function change_to_autumn () {
     let change_div = document.getElementsByTagName('div');
-    for(let i=0;i<=change_div.length;i++){
-        console.log(change_div[i]);
-        if (i % 3 === 0) {
-        change_div[i].style.cssText = `
-        width: 100px;
-        height: 100px;
-        margin: 5px;
-        background-color: red;
-        `;
+    for(let i = 0;i < change_div.length;i++){
+        if (i % 3 - 2 === 0) {
+            change_div[i].style.backgroundColor = 'red';
         } else {
-            change_div[i].style.cssText = `
-        width: 100px;
-        height: 100px;
-        margin: 5px;
-        background-color: yellow;
-        `;
+            change_div[i].style.backgroundColor = 'yellow';
         }
     }
 }
 
-create_winter(10);
-change_to_spring ();
+function create_night () {
+    let change_div = document.getElementsByTagName('div');
+    for(let i = change_div.length - 1;i >= 0;i--){
+        console.log(i >= 0, change_div.length)
+        change_div[i].remove();
+    }
+    document.body.style.backgroundColor = 'black';
+}
+
+setTimeout(() => create_winter(10), 3000);
+setTimeout(() => change_to_spring (), 6000);
+setTimeout(() => change_to_autumn (), 9000);
+setTimeout(() => create_night (), 12000);
+
+
+
+// create_winter(10);
+// change_to_spring ();
 // change_to_autumn ();
-
-// setTimeout(() => create_winter(10), 2000);
-// setTimeout(() => change_to_spring (), 4000);
+// create_night ();
 
 
+// function create_night () {
+//     let change_div = document.getElementsByTagName('div');
+//     console.log(change_div);
+//     console.log(change_div.textContent);
+//     change_div.textContent = '';
+//     document.body.style.backgroundColor = 'black';
+// }
 
-// create_winter(10)
-// setTimeout(create_winter, 3000);
+
