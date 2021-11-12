@@ -49,10 +49,9 @@ let COLORES_RUS = [
 ];
 
 function get_random_size(min, max) {
-    function check_param(param) {
-        return typeof (param) !== 'number';
-    }
-    if (check_param(min) || check_param(max)) {
+    min = Number(min);
+    max = Number(max);
+    if (isNaN(min) || isNaN(max)) {
         return null;
     }
     let result = 0;
@@ -73,17 +72,21 @@ function get_random_color(colors_arr) {
     return result;
 }
 
-function create_rectangles (number) {
-    for(let i = 0;i < number;i++){
+function create_rectangles (quantity) {
+    quantity = Number(quantity);
+    if (isNaN(quantity)) {
+        return null;
+    }
+    for(let i = 0;i < quantity;i++){
         let new_div = document.createElement('div');
-        let width_rectangle = get_random_size(150, 300);
-        let height_rectangle = get_random_size(50, 150);
-        let background_color_rectangle = get_random_color(COLORES);
+        let width_of_rectangle = get_random_size(350, 500);
+        let height_of_rectangle = get_random_size(100, 300);
+        let background_color_of_rectangle = get_random_color(COLORES);
         new_div.style.cssText = `
-            width: ${width_rectangle}px; 
-            height: ${height_rectangle}px; 
+            width: ${width_of_rectangle}px; 
+            height: ${height_of_rectangle}px; 
             margin: 25px; 
-            background-color: ${background_color_rectangle};
+            background-color: ${background_color_of_rectangle};
         `;
         document.body.prepend(new_div);
     }
@@ -95,7 +98,7 @@ function show_rectangles_size_after_hover (element) {
             let number_of_rectangle = `№${i + 1}`;
             let width_of_rectangle = `w=${element[i].style.width}`;
             let height_of_rectangle = `h=${element[i].style.height}`;
-            console.log(`Цвет прямоугольника ${number_of_rectangle}: ${width_of_rectangle} X ${height_of_rectangle}`);
+            console.log(`Размер прямоугольника ${number_of_rectangle}: ${width_of_rectangle} X ${height_of_rectangle}`);
         });
     }
 }
@@ -116,7 +119,7 @@ function  show_rectangles_color_after_click (element) {
         element[i].addEventListener("click", function(event) {
             let number_of_rectangle = `№${i + 1}`;
             let color_of_rectangle = element[i].style.backgroundColor;
-            let rus_color_of_rectangle =find_rus_color (color_of_rectangle);
+            let rus_color_of_rectangle = find_rus_color (color_of_rectangle);
             alert(`Цвет прямоугольника ${number_of_rectangle}: ${rus_color_of_rectangle}`);
         });
     }
