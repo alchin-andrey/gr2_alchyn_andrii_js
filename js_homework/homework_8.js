@@ -30,7 +30,6 @@ function create_winter (number) {
 function change_to_spring () {
     let change_div = document.getElementsByTagName('div');
     for(let i = 0;i < change_div.length;i++){
-        console.log(`перед ${i}, ${change_div[i]}`);
         change_div[i].style.cssText += `
         width: 100px; 
         height: 100px; 
@@ -53,7 +52,6 @@ function change_to_autumn () {
 function create_night () {
     let change_div = document.getElementsByTagName('div');
     for(let i = change_div.length - 1;i >= 0;i--){
-        console.log(i >= 0, change_div.length)
         change_div[i].remove();
     }
     document.body.style.backgroundColor = 'black';
