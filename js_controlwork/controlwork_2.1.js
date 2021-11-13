@@ -62,9 +62,9 @@ function get_numb (element) {
 
 function change_to_autumn (element) {
     for(let i = 0;i < element.length;i++){
-        element[i].style.color = 'black';
         if ((i % 15) - 14 === 0) {
             console.log ((i % 15) - 1);
+            element[i].style.color = 'black';
             element[i].style.backgroundColor = '';
             element[i].style.minWidth = '';
             element[i].style.minHeight = '';
@@ -80,6 +80,7 @@ function change_to_autumn (element) {
             element[i].style.backgroundColor = 'crimson';
         } else {    
             element[i].style.backgroundColor = 'gold';
+            element[i].style.color = 'black';
         }
     }
 }
