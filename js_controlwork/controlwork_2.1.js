@@ -63,7 +63,6 @@ function get_numb (element) {
 function change_to_autumn (element) {
     for(let i = 0;i < element.length;i++){
         if ((i % 15) - 14 === 0) {
-            console.log ((i % 15) - 1);
             element[i].style.color = 'black';
             element[i].style.backgroundColor = '';
             element[i].style.minWidth = '';
@@ -87,7 +86,7 @@ function change_to_autumn (element) {
 
 function create_night (element) {
     for(let i = element.length - 1;i >= 0;i--){
-        if (i % 3 - 2 === 0 && (i % 15) - 14 !== 0) {
+        if ((i % 3) - 2 === 0 && (i % 15) - 14 !== 0) {
         element[i].remove();
     }
 }
