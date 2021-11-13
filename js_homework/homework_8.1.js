@@ -8,6 +8,16 @@
 Каждое действие должно выполниться через 3 секунды от предыдущего, первое действие также должно иметь задержку 3 секунды.
 */
 
+//Очистка страницы
+function cline_body () {
+    let _div = document.getElementsByTagName('div');
+    for(let i = _div.length - 1;i >= 0;i--){
+        _div[i].remove();
+    }
+}
+cline_body ()
+
+//Решение
 document.body.style.cssText = `
     display: flex;
     flex-direction: column;
@@ -40,9 +50,9 @@ function change_to_spring (element) {
 function change_to_autumn (element) {
     for(let i = 0;i < element.length;i++){
         if (i % 3 - 2 === 0) {
-            element[i].style.backgroundColor = 'red';
+            element[i].style.backgroundColor = 'crimson';
         } else {
-            element[i].style.backgroundColor = 'yellow';
+            element[i].style.backgroundColor = 'gold';
         }
     }
 }
@@ -54,15 +64,14 @@ function create_night (element) {
     document.body.style.backgroundColor = 'black';
 }
 
-
-let change_div = document.getElementsByTagName('div');
+let div_for_change = document.getElementsByTagName('div');
 setTimeout(() => create_winter(10), 3000);
-setTimeout(() => change_to_spring (change_div), 6000);
-setTimeout(() => change_to_autumn (change_div), 9000);
-setTimeout(() => create_night (change_div), 12000);
+setTimeout(() => change_to_spring (div_for_change), 6000);
+setTimeout(() => change_to_autumn (div_for_change), 9000);
+setTimeout(() => create_night (div_for_change), 12000);
 
 
 // create_winter(10);
-// change_to_spring ();
-// change_to_autumn ();
-// create_night ();
+// change_to_spring (div_for_change);
+// change_to_autumn (div_for_change);
+// create_night (div_for_change);

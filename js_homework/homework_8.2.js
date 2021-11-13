@@ -5,6 +5,16 @@
 При клике на прямоугольник - выдать уведомление, в котором будет русское название цвета этого прямоугольника.
 */
 
+//Очистка страницы
+function cline_body () {
+    let _div = document.getElementsByTagName('div');
+    for(let i = _div.length - 1;i >= 0;i--){
+        _div[i].remove();
+    }
+}
+cline_body ()
+
+//Решение
 document.body.style.cssText = `
     display: flex;
     flex-direction: row;
@@ -77,11 +87,20 @@ function create_rectangles (quantity) {
     if (isNaN(quantity)) {
         return null;
     }
+    let rectangle_colors = [];
     for(let i = 0;i < quantity;i++){
         let new_div = document.createElement('div');
         let width_of_rectangle = get_random_size(350, 500);
         let height_of_rectangle = get_random_size(100, 300);
-        let background_color_of_rectangle = get_random_color(COLORES);
+        let background_color_of_rectangle = null;
+        while (!background_color_of_rectangle) {
+            let search_color = get_random_color(COLORES);
+            if (rectangle_colors.indexOf(search_color) !== -1) {
+                continue;
+            }
+            background_color_of_rectangle = search_color;
+            rectangle_colors.push(background_color_of_rectangle);
+        };
         new_div.style.cssText = `
             width: ${width_of_rectangle}px; 
             height: ${height_of_rectangle}px; 
@@ -129,4 +148,3 @@ create_rectangles (2);
 let block_for_mouse = document.getElementsByTagName('div');
 show_rectangles_size_after_hover (block_for_mouse);
 show_rectangles_color_after_click (block_for_mouse);
-
