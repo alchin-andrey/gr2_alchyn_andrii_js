@@ -17,7 +17,12 @@ ps: делайте задание по частям
 function Сreate_calculator(calculator_name) {
     this.name = calculator_name || 'Мой калькулятор';
     this.history = [];
-    
+
+    function create_history_item(action, result, arg) {
+        let name = calculator_name || 'Мой калькулятор';
+        return `${name} (${get_date()}): ${action} = ${result}, (${arg.join(', ')})`;
+    }
+
     function not_number(number) {
         return isNaN(number);
     }
@@ -56,9 +61,10 @@ function Сreate_calculator(calculator_name) {
         arg.forEach((item) => {
             result += item;
         });
-        let history_item = `${this.name} (${get_date()}): сумма = ${result}, (${arg.join(', ')})`;
+        let action = 'сумма';
+        let history_item = create_history_item(action, result, arg);
         this.history.push(history_item);
-        return result;
+        return `${action} = ${result}`;
     }
 
     this.to_subtract = function(minuend, subtrahend) {
@@ -70,9 +76,10 @@ function Сreate_calculator(calculator_name) {
             return null;
         }
         let result = arg[0] - arg[1];
-        let history_item = `${this.name} (${get_date()}): разность = ${result}, (${arg.join(', ')})`;
+        let action = 'разность';
+        let history_item = create_history_item(action, result, arg);
         this.history.push(history_item);
-        return result;
+        return `${action} = ${result}`;
     }
 
     this.multiply = function(...arg) {
@@ -85,9 +92,10 @@ function Сreate_calculator(calculator_name) {
         arg.forEach((item) => {
             result *= item;
         });
-        let history_item = `${this.name} (${get_date()}): произведение = ${result}, (${arg.join(', ')})`;
+        let action = 'произведение';
+        let history_item = create_history_item(action, result, arg);
         this.history.push(history_item);
-        return result;
+        return `${action} = ${result}`;
     }
 
     this.divide = function(dividend, divisor) {
@@ -99,33 +107,45 @@ function Сreate_calculator(calculator_name) {
             return null;
         }
         let result = arg[0] / arg[1];
-        let history_item = `${this.name} (${get_date()}): частное = ${result}, (${arg.join(', ')})`;
+        let action = 'частное';
+        let history_item = create_history_item(action, result, arg);
         this.history.push(history_item);
-        return result;
+        return `${action} = ${result}`;
+    }
+
+    this.get_history = function() {
+        if (this.history.length === 0) {
+            return `Истории калькулятора "${this.name}": ОТСУТСТВУЕТ!`;
+        }
+        console.log(`История калькулятора "${this.name}":`)
+        for(let i = 0;i < this.history.length;i++){
+            console.log(`${this.history[i]};`);
+        };
+        return `Конец истории калькулятора "${this.name}".`;
     }
 
     this.clear_history = function() {
         this.history = [];
-        let result = `История калькулятора "${this.name}" очищена!`
+        let result = `История калькулятора "${this.name}" ОЧИЩЕНА!`
         return result;
     }
 }
 
-let calc = new Сreate_calculator('Считака');
+let calc = new Сreate_calculator('Сейчас как поделю!');
 
 // Обычная проверка
 console.log(calc.to_add(1, 2, '6', 5));
 console.log(calc.to_subtract(5, '2', '6', 5));
 console.log(calc.multiply(1, '2', '6', 5));
 console.log(calc.divide(4, '2', '6', 5));
-console.log(calc.history);
+console.log(calc.get_history());
 console.log(calc.clear_history());
-console.log(calc.history);
+console.log(calc.get_history());
 
 // Проверка по времени
-setTimeout(() => console.log(calc.to_add(1, 2, '6', 5), calc.history), 3000);
-setTimeout(() => console.log(calc.to_subtract(5, '2', '6', 5), calc.history), 20000);
-setTimeout(() => console.log(calc.multiply(1, '2', '6', 5), calc.history), 40000);
-setTimeout(() => console.log(calc.divide(4, '2', '6', 5), calc.history), 61000);
-setTimeout(() => console.log(calc.clear_history(), calc.history), 65000);
-setTimeout(() => console.log(calc.divide(4, '2', '6', 5), calc.history), 70000);
+setTimeout(() => console.log(calc.to_add(1, 2, '6', 5), calc.get_history()), 3000);
+setTimeout(() => console.log(calc.to_subtract(5, '2', '6', 5), calc.get_history()), 20000);
+setTimeout(() => console.log(calc.multiply(1, '2', '6', 5), calc.get_history()), 40000);
+setTimeout(() => console.log(calc.divide(4, '2', '6', 5), calc.get_history()), 61000);
+setTimeout(() => console.log(calc.clear_history(), calc.get_history()), 65000);
+setTimeout(() => console.log(calc.divide(4, '2', '6', 5), calc.get_history()), 70000);
