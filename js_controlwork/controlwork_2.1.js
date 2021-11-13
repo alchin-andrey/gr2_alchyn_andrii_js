@@ -63,17 +63,11 @@ function get_numb (element) {
 function change_to_autumn (element) {
     for(let i = 0;i < element.length;i++){
         if ((i % 15) - 14 === 0) {
-            element[i].style.color = 'black';
             element[i].style.backgroundColor = '';
-            element[i].style.minWidth = '';
-            element[i].style.minHeight = '';
-            element[i].style.maxHeight = '';
             element[i].style.cssText += `
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-bottom: 10px solid rgb(99, 114, 72);
+            background: linear-gradient(to right bottom, transparent 50%, rgb(99, 114, 72) 50%) left / 50% 100% no-repeat, linear-gradient(to left bottom, transparent 50%, rgb(99, 114, 72) 50%) right / 50% 100% no-repeat;
+            align-items: flex-end;
+            font-size: 5px;
             `;
         } else if (i % 3 - 2 === 0) {
             element[i].style.backgroundColor = 'crimson';
