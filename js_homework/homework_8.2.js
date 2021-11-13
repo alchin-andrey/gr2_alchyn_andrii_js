@@ -29,16 +29,16 @@ const COLORES = [
     'crimson', 
     'gold', 
     'indigo', 
-    'khaki', 
-    'chocolate', 
+    'olivedrab', 
+    'saddlebrown', 
     'green', 
     'grey', 
     'slateblue', 
     'tomato', 
     'teal', 
-    'violet', 
+    'darkorchid', 
     'yellowgreen', 
-    'purple'
+    'purple',
 ];
 
 let COLORES_RUS = [
@@ -78,7 +78,7 @@ function get_random_color(colors_arr) {
     if (!Array.isArray(colors_arr)) {
         return null;
     }
-    let і = Math.floor(Math.random(colors_arr) * colors_arr.length);
+    let і = Math.floor(Math.random() * colors_arr.length);
     result = colors_arr[і];
     return result;
 }
@@ -101,7 +101,7 @@ function create_rectangles (quantity) {
             }
             background_color_of_rectangle = search_color;
             rectangle_colors.push(background_color_of_rectangle);
-        };
+        }
         new_div.style.cssText = `
             width: ${width_of_rectangle}px; 
             height: ${height_of_rectangle}px; 
