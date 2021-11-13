@@ -19,7 +19,8 @@ document.body.style.cssText = `
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+    min-height:100vh;
 `;
 
 const COLORES = [

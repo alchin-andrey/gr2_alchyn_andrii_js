@@ -22,6 +22,8 @@ document.body.style.cssText = `
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    min-height:100vh;
     `;
 
 function create_winter (number) {
