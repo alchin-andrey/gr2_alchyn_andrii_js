@@ -9,9 +9,6 @@ let min = 500;
 let max = 888;
 let n = 2;
 
-// Вариант №1 (более правильный)
-
-
 for (let i = min; i <= max; i ++) {
         if (i % n === 0) {
         array.push(i);
