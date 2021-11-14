@@ -89,7 +89,7 @@ $(document).ready(function(){
 
 
 
-// setTimeout отдельно
+// ----------------- setTimeout отдельно -------------------------- //
 
 // $(document).ready(function(){
 
