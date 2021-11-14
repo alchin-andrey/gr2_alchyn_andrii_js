@@ -57,19 +57,19 @@ function get_numb (element) {
         justify-content: center;
         `;
         element[i].innerText = `${i+1}`;
-}
+    }
 }
 
 function change_to_autumn (element) {
     for(let i = 0;i < element.length;i++){
-        if ((i % 15) - 14 === 0) {
+        if ((i + 1) % 15 === 0) {
             element[i].style.backgroundColor = '';
             element[i].style.cssText += `
-            background: linear-gradient(to right bottom, transparent 50%, rgb(99, 114, 72) 50%) left / 50% 100% no-repeat, linear-gradient(to left bottom, transparent 50%, rgb(99, 114, 72) 50%) right / 50% 100% no-repeat;
+            background: linear-gradient(to right bottom, transparent 48%, rgb(99, 114, 72) 50%) left / 50.25% 100% no-repeat, linear-gradient(to left bottom, transparent 48%, rgb(99, 114, 72) 50%) right / 50.25% 100% no-repeat;
             align-items: flex-end;
             font-size: 5px;
             `;
-        } else if (i % 3 - 2 === 0) {
+        } else if ((i + 1) % 3 === 0) {
             element[i].style.backgroundColor = 'crimson';
         } else {    
             element[i].style.backgroundColor = 'gold';
@@ -80,10 +80,10 @@ function change_to_autumn (element) {
 
 function create_night (element) {
     for(let i = element.length - 1;i >= 0;i--){
-        if ((i % 3) - 2 === 0 && (i % 15) - 14 !== 0) {
-        element[i].remove();
+        if ((i + 1) % 3 === 0 && (i + 1) % 15 !== 0) {
+            element[i].remove();
+        }
     }
-}
 }
 
 let div_for_change = document.getElementsByTagName('div');
