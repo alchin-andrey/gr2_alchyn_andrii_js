@@ -5,7 +5,7 @@
 При клике на прямоугольник - выдать уведомление, в котором будет русское название цвета этого прямоугольника.
 */
 
-//Очистка страницы
+// Очистка страницы
 function cline_body () {
     let _div = document.getElementsByTagName('div');
     for(let i = _div.length - 1;i >= 0;i--){
@@ -14,7 +14,7 @@ function cline_body () {
 }
 cline_body ()
 
-//Решение
+// Настройка страницы
 document.body.style.cssText = `
     display: flex;
     flex-direction: row;
@@ -22,6 +22,9 @@ document.body.style.cssText = `
     justify-content: space-evenly;
     min-height:100vh;
 `;
+
+
+// ---------------------------------Решение с рандомом-------------------------- //
 
 const COLORES = [
     'black', 
@@ -41,7 +44,7 @@ const COLORES = [
     'purple',
 ];
 
-let COLORES_RUS = [
+const COLORES_RUS = [
     'Чернее чернейшей черноты бесконечности', 
     'Коралловый', 
     'Малиновый', 
@@ -149,3 +152,96 @@ create_rectangles (2);
 let block_for_mouse = document.getElementsByTagName('div');
 show_rectangles_size_after_hover (block_for_mouse);
 show_rectangles_color_after_click (block_for_mouse);
+
+
+// ------------------ Простое решение ------------------------//
+
+// function create_rectangles (width, height, color) {
+//     quantity = Number(width);
+//     quantity = Number(height);
+//     if (isNaN(width) || isNaN(height) || typeof color !== 'string') {
+//         return null;
+//     }
+//         let new_div = document.createElement('div');
+//         new_div.style.cssText = `
+//             width: ${width}px; 
+//             height: ${height}px; 
+//             margin: 25px; 
+//             background-color: ${color};
+//         `;
+//         document.body.prepend(new_div);
+
+//     }
+
+// function show_rectangles_size_after_hover (element) {
+//     for(let i = 0;i < element.length;i++){
+//         element[i].addEventListener("mouseenter", function(event) {
+//             let number_of_rectangle = `№${i + 1}`;
+//             let width_of_rectangle = `w=${element[i].style.width}`;
+//             let height_of_rectangle = `h=${element[i].style.height}`;
+//             console.log(`Размер прямоугольника ${number_of_rectangle}: ${width_of_rectangle} X ${height_of_rectangle}`);
+//         });
+//     }
+// }
+
+// function  show_rectangles_color_after_click (element, arr) {
+//     for(let i = 0;i < element.length;i++){
+//         element[i].addEventListener("click", function(event) {
+//             let number_of_rectangle = `№${i + 1}`;
+//             let rus_color_of_rectangle = arr[i];
+//             alert(`Цвет прямоугольника ${number_of_rectangle}: ${rus_color_of_rectangle}`);
+//         });
+//     }
+// }
+
+// let colors = ['Зелёный', 'Оранжевый'];
+// create_rectangles (300, 150, 'orange');
+// create_rectangles (500, 250, 'forestgreen');
+// let block_for_mouse = document.getElementsByTagName('div');
+// show_rectangles_size_after_hover (block_for_mouse);
+// show_rectangles_color_after_click (block_for_mouse, colors);
+
+
+// ----------------------- МАКСИМАЛЬНО простое решение -------------------------- //
+
+// let new_div_1 = document.createElement('div');
+// new_div_1.setAttribute ('id', '№1');
+// new_div_1.style.cssText = `
+//     width: 500px; 
+//     height: 250px; 
+//     margin: 25px; 
+//     background-color: forestgreen;
+// `;
+// document.body.prepend(new_div_1);
+
+// let new_div_2 = document.createElement('div');
+// new_div_1.setAttribute ('id', '№2');
+// new_div_2.style.cssText = `
+//     width: 300px; 
+//     height: 150px; 
+//     margin: 25px; 
+//     background-color: orange;
+// `;
+// document.body.prepend(new_div_2);
+
+// let block_for_mouse = document.getElementsByTagName('div');
+
+// block_for_mouse[0].onmouseenter = function() {
+//     let width_of_rectangle = `w=${block_for_mouse[0].style.width}`;
+//     let height_of_rectangle = `h=${block_for_mouse[0].style.height}`;
+//     console.log(`Размер прямоугольника №1: ${width_of_rectangle} X ${height_of_rectangle}`);
+// }
+
+// block_for_mouse[1].onmouseenter = function() {
+//     let width_of_rectangle = `w=${block_for_mouse[1].style.width}`;
+//     let height_of_rectangle = `h=${block_for_mouse[1].style.height}`;
+//     console.log(`Размер прямоугольника №2: ${width_of_rectangle} X ${height_of_rectangle}`);
+// }
+
+// block_for_mouse[0].onclick = function() {
+//     alert('Цвет прямоугольника №1: Оранжевый');
+// }
+
+// block_for_mouse[1].onclick = function() {
+//     alert('Цвет прямоугольника №2: Зелёный');
+// }

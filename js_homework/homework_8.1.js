@@ -51,7 +51,7 @@ function change_to_spring (element) {
 
 function change_to_autumn (element) {
     for(let i = 0;i < element.length;i++){
-        if (i % 3 - 2 === 0) {
+        if ((i + 1) % 3 === 0) {
             element[i].style.backgroundColor = 'crimson';
         } else {
             element[i].style.backgroundColor = 'gold';
