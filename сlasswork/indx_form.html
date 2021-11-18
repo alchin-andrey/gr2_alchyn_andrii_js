@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8" />
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <title>Forms</title>
+</head>
+<body>
+    <form id="main" name="main">
+        <ul>
+            <li>
+                <label for="name" id="nameLabel">Имя:</label>
+                <input type="text" id="name" name="user_name" />
+            </li>
+            <li>
+                <label for="mail">E-mail:</label>
+                <input type="email" id="mail" name="user_email" />
+            </li>
+            <li>
+                <label for="msg" id="msgLabel">Сообщение:</label>
+                <textarea id="msg" name="user_message"></textarea>
+            </li>
+            <li>
+                <button type="submit">Отправить</button>
+            </li>
+        </ul>
+    </form>
+</body>
+</html>
