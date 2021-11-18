@@ -13,10 +13,6 @@ $(document).ready(function(){
     $('div').remove();
     document.body.style.cssText = '';
 
-    fetch('https://jsonplaceholder.typicode.com/users')
-  .then(response => response.json())
-  .then(json => console.log(json))
-
     async function receive_request(){
         let response = await fetch('https://jsonplaceholder.typicode.com/users')
         let data = await response.json()
@@ -40,7 +36,7 @@ $(document).ready(function(){
         for(let i = 0;i < element.length;i++){
             console.log(element[i].id)
             element[i].onclick = function (event) {
-                console.log(element[i].id, element.id)
+                console.log(element[i].id)
                 alert(`Phone number: ${element[i].id}`);
             }
         }
@@ -92,11 +88,4 @@ $(document).ready(function(){
     //     }
     // }
 
-
-
-// let myblock = document.querySelectorAll('.myblock');
-
-// user_phone_btm.forEach(block => block.addEventListener('click', function(event) {
-//     alert(`Phone number: ${block.id}`);
-// }));
 
