@@ -141,6 +141,40 @@ $(document).ready(function () {
         };
     }
 
+    function Brick(options) {
+        this.id = Math.trunc(Math.random() * 1000);
+        this.x = options.x;
+        this.y = options.y;
+        this.width = options.width;
+        this.height = options.height;
+        this.color = options.color;
+
+        this.createView = function () {
+            let result = document.createElement("div");
+            result.style.cssText = `
+                position: absolute;
+                left: ${this.x}px;
+                top: ${this.y}px;
+                width: ${this.width}px;
+                height: ${this.height}px;
+                background: ${this.color};
+                `;
+            document.documentElement.append(result);
+            return result;
+        };
+
+        this.div = this.createView();
+
+        this.renderState = function () {};
+
+        this.renderView = function () {};
+
+        this.live = function () {
+            this.renderState();
+            this.renderView();
+        };
+    }
+
     let objects = [];
 
     objects.push(
@@ -201,19 +235,91 @@ $(document).ready(function () {
     document.documentElement.onmousemove = r.doMove.bind(r);
     objects.push(r);
 
+    function createBricks (number) {
+        function getRandomPosition(min, max) {
+            min = Number(min);
+            max = Number(max);
+            if (isNaN(min) || isNaN(max)) {
+                return null;
+            }
+            let result = 0;
+            let temp = Math.random();
+            
+            result = min + (max - min) * temp;
+            result = Math.floor(result);
+        
+            return result;
+        }
+        let arrayPositionX = [];
+        let arrayPositionY = [];
+        let brickWidth = 60;
+        let brickHeight = 30;
+        for (let i = 0; i < number; i++) {
+            let PositionX = null;
+            let PositionY = null;
+            while (!PositionX) {
+                let searchPositionX = getRandomPosition(50, document.documentElement.clientWidth - (50 + brickWidth));
+                let searchPositionY = getRandomPosition(50, document.documentElement.clientHeight - 200);
+                let resultX = false;
+                let resultY = false;
+                let result = false;
+                arrayPositionX.forEach(function(item) {
+                    if (searchPositionX >= (item - 10 - brickWidth) && searchPositionX <= (item + 10 + brickWidth)) {
+                        resultX = true;
+                    }
+                });
+                arrayPositionY.forEach(function(item) {
+                    if (searchPositionY >= (item - 10 - brickHeight) && searchPositionY <= (item + 10 + brickHeight)) {
+                        resultY = true;
+                    }
+                });
+                console.log(resultX && resultY);
+                if (resultX && resultY) {
+                    result = true;
+                    }
+                if (result) {
+                    continue;
+                }
+                PositionX = searchPositionX;
+                PositionY = searchPositionY;
+                arrayPositionX.push(PositionX);
+                arrayPositionY.push(PositionY);
+            }
+            objects.push(
+                new Brick({
+                    x: PositionX,
+                    y: PositionY,
+                    width: brickWidth,
+                    height: brickHeight,
+                    color: "mediumvioletred",
+                })
+            );
+        }
+    }
+    createBricks (5);
+
 
     function checkCollision(objectA, objectB) {
         if (objectA !== objectB) {
             let ball = null;
+            let ball2 = null;
             let wall = null;
             let racket = null;
+            let brick = null;
             if (objectA instanceof Ball) {
                 ball = objectA;
-            } else if (objectA instanceof Wall) {
-                wall = objectA;
-            }
-            if (objectB instanceof Ball) {
+            } else if (objectB instanceof Ball) {
                 ball = objectB;
+            }
+
+            if (objectA instanceof Ball) {
+                ball2 = objectA;
+            } else if (objectB instanceof Ball) {
+                ball2 = objectB;
+            }
+
+            if (objectA instanceof Wall) {
+                wall = objectA;
             } else if (objectB instanceof Wall) {
                 wall = objectB;
             }
@@ -222,6 +328,47 @@ $(document).ready(function () {
                 racket = objectA;
             } else if (objectB instanceof Racket) {
                 racket = objectB;
+            }
+
+            if (objectA instanceof Brick) {
+                brick = objectA;
+            } else if (objectB instanceof Brick) {
+                brick = objectB;
+            }
+
+            if (ball && brick) {
+                if (
+                    ball.x < brick.x + brick.width &&
+                    ball.x + ball.diametr > brick.x &&
+                    ball.y < brick.y + brick.height &&
+                    ball.diametr + ball.y > brick.y ||
+                    (ball.x + ball.diametr === brick.x ||
+                    ball.x === brick.x + brick.width) &&
+                    ball.y > brick.y &&
+                    ball.y < brick.y + brick.height
+                    ) {
+                    ball.invertDirectionX();
+                    // objects.splice(0,objects.indexOf(brick));
+                    // brick.remove();
+                }
+
+                if (
+                    ball.x > brick.x &&
+                    ball.x < brick.x + brick.width &&
+                    ball.y === brick.y + brick.height
+                ) {
+                    ball.invertDirectionY();
+                    // objects.splice(0,objects.indexOf(brick));
+                    // brick.remove();
+                }
+
+                if (
+                    ball.x >= brick.x &&
+                    ball.x <= brick.x + brick.width &&
+                    ball.y + ball.diametr === brick.y
+                ) {
+                    ball.invertDirectionY();
+                }
             }
 
             if (ball && wall) {
@@ -252,13 +399,26 @@ $(document).ready(function () {
                     ball.invertDirectionY();
                 }
             }
+
+            if (ball && ball2) {
+                console.log (`1= ${ball} '2= ${ball2}`)
+            let dx = (ball.x + ball.diametr / 2) - (ball2.x + ball2.diametr / 2);
+            let dy = (ball.y + ball.diametr / 2) - (ball2.y + ball2.diametr / 2) ;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+                if (
+                    distance < (ball.diametr / 2 + ball2.diametr / 2)
+                ) {
+                    ball.invertDirectionY();
+                    ball2.invertDirectionY();
+                }
+            }
         }
     }
 
     function isGameOver() {
         let balls = objects.filter((item) => item instanceof Ball);
         let racket = objects.find((item) => item instanceof Racket);
-        return balls.find((ball) => ball.y > racket.y);
+        return !!balls.find((ball) => ball.y > racket.y);
     }
 
     function doGameStep() {
@@ -290,3 +450,63 @@ $(document).ready(function () {
 
     setTimeout(doGameStep, GAME_STEP_DELAY);
 });
+
+
+
+// function createBricks (number) {
+//     function getRandomPosition(min, max) {
+//         min = Number(min);
+//         max = Number(max);
+//         if (isNaN(min) || isNaN(max)) {
+//             return null;
+//         }
+//         let result = 0;
+//         let temp = Math.random();
+        
+//         result = min + (max - min) * temp;
+//         result = Math.floor(result);
+    
+//         return result;
+//     }
+//     let arrayPositionX = [];
+//     let arrayPositionY = [];
+//     let brickWidth = 60;
+//     let bricksHeight = 30;
+//     for (let i = 0; i < number; i++) {
+//         let PositionX = null;
+//         while (!PositionX) {
+//             let searchPositionX = getRandomPosition(50, document.documentElement.clientWidth - (50 + brickWidth));
+//             let result = false;
+//             arrayPositionX.forEach(function(item) {
+//                 if (searchPositionX >= (item - 10 - brickWidth) && searchPositionX <= (item + 10 + brickWidth)) {
+//                 result = true;
+//                 }
+//             });
+//             if (result) {
+//                 continue;
+//             }
+//             PositionX = searchPositionX;
+//             arrayPositionX.push(PositionX);
+//         }
+//         console.log(arrayPositionX);
+//         let PositionY = null;
+//         while (!PositionY) {
+//             let searchPositionY = getRandomPosition(50, document.documentElement.clientHeight - 200);
+//             if (arrayPositionY.indexOf(searchPositionY) !== -1) {
+//                 continue;
+//             }
+//             PositionY = searchPositionY;
+//             // console.log('y= ' + PositionY);
+//             arrayPositionY.push(PositionY);
+//         }
+//         objects.push(
+//             new Brick({
+//                 x: PositionX,
+//                 y: PositionY,
+//                 width: brickWidth,
+//                 height: bricksHeight,
+//                 color: "mediumvioletred",
+//             })
+//         );
+//     }
+// }
