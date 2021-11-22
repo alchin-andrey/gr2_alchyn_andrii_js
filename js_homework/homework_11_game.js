@@ -6,7 +6,7 @@
 $(document).ready(function () {
     $('div').remove();
     $('body').removeAttr('style');
-    const GAME_STEP_DELAY = 10;
+    const GAME_STEP_DELAY = 5;
 
     let currentGameStep = 0;
 
@@ -22,7 +22,7 @@ $(document).ready(function () {
         this.x = options.x;
         this.y = options.y;
         this.directionX = options.startDirectionX || 1;
-        this.directionY = 1;
+        this.directionY = options.startDirectionY || 1;
 
         console.log("ball", this.id, this.directionX);
 
@@ -38,7 +38,7 @@ $(document).ready(function () {
                 height: ${this.diametr}px;
                 background: ${this.color}
                 `;
-            result.innerText = this.id;
+            // result.innerText = this.id;
             document.documentElement.append(result);
             return result;
         };
@@ -122,6 +122,7 @@ $(document).ready(function () {
                 width: ${this.width}px;
                 height: ${this.height}px;
                 background: ${this.color};
+                border-radius: 0 0 50% 50%;
                 `;
 
             document.documentElement.append(result);
@@ -137,7 +138,9 @@ $(document).ready(function () {
         };
 
         this.doMove = function (event) {
-            this.x = event.x;
+            if ((event.x < objects[3].x - (this.width / 2))
+            && event.x > objects[3].width + (this.width / 2))
+            this.x = event.x - (this.width / 2);
         };
 
         this.live = function () {
@@ -147,7 +150,7 @@ $(document).ready(function () {
     }
 
     function Brick(options) {
-        this.id = Math.trunc(Math.random() * 1000);
+        this.id = Math.trunc(Math.random() * 10000);
         this.x = options.x;
         this.y = options.y;
         this.width = options.width;
@@ -156,6 +159,8 @@ $(document).ready(function () {
 
         this.createView = function () {
             let result = document.createElement("div");
+            result.className = this.id;
+            result.id = this.id;
             result.style.cssText = `
                 position: absolute;
                 left: ${this.x}px;
@@ -182,22 +187,24 @@ $(document).ready(function () {
 
     let objects = [];
 
-    objects.push(
-        new Ball({
-            diametr: 50,
-            color: "blue",
-            x: 100,
-            y: 100,
-            startDirectionX: -1,
-        })
-    );
+
+    // objects.push(
+    //     new Ball({
+    //         diametr: 50,
+    //         color: "blue",
+    //         x: 100,
+    //         y: 100,
+    //         startDirectionX: -1,
+    //     })
+    // );
 
     objects.push(
         new Ball({
-            diametr: 40,
+            diametr: 30,
             color: "orange",
-            x: 200,
-            y: 200,
+            x: Math.floor(document.documentElement.clientWidth / 2),
+            y: document.documentElement.clientHeight - 100,
+            startDirectionY: -1,
         })
     );
 
@@ -231,7 +238,7 @@ $(document).ready(function () {
         })
     );
     let r = new Racket({
-        x: 0,
+        x: Math.floor(document.documentElement.clientWidth / 2),
         y: document.documentElement.clientHeight - 40,
         width: 150,
         height: 20,
@@ -240,53 +247,70 @@ $(document).ready(function () {
     document.documentElement.onmousemove = r.doMove.bind(r);
     objects.push(r);
 
-    function createBricks (number) {
-        function getRandomPosition(min, max) {
-            min = Number(min);
+    function createBricks (numberOfBricks) {
+        function evenArray(min, max, step) {
+            min = Number(min);;
             max = Number(max);
+            step = Number(step);
             if (isNaN(min) || isNaN(max)) {
                 return null;
             }
-            let result = 0;
-            let temp = Math.random();
-            
-            result = min + (max - min) * temp;
-            result = Math.floor(result);
-        
+            let array = [];
+            for (let i = min; i <= max; i += step) {
+                array.push(i);
+            }
+            return array;
+        }
+    
+        function getRandomPosition(arr) {
+            if (!Array.isArray(arr)) {
+                return null;
+            }
+            let result;
+            let random_index = Math.floor(Math.random() * arr.length);
+            result = arr[random_index];
             return result;
         }
         let arrayPositionX = [];
         let arrayPositionY = [];
+        let arrayPositionXY = [];
         let brickWidth = 60;
         let brickHeight = 30;
-        for (let i = 0; i < number; i++) {
+        let gap = 10;
+        let stepX = brickWidth + gap;
+        let stepY = brickHeight + gap;
+        let IndentX = 20;
+        let topIndentY = 20;
+        let bottomIndentY = 200;
+        let screenWidth = document.documentElement.clientWidth;
+        let screenHeight = document.documentElement.clientHeight;
+        let bricksOnX = Math.floor ((screenWidth - IndentX * 2 + gap) / stepX);
+        let bricksOnY = Math.floor ((screenHeight - topIndentY - bottomIndentY + gap) / stepY);
+        let lengthBricksOnX = brickWidth * bricksOnX + gap * (bricksOnX - 1);
+        let lengthToLastBricksOnX = lengthBricksOnX - brickWidth;
+        let minPositionX = Math.floor ((screenWidth - lengthBricksOnX) / 2);
+        let maxPositionX = minPositionX + lengthToLastBricksOnX;
+        let lengthBricksOnY = brickHeight * bricksOnY + gap * (bricksOnY - 1);
+        let lengthToLastBricksOnY = lengthBricksOnY - brickHeight;
+        let minPositionY = topIndentY;
+        let maxPositionY = minPositionY + lengthToLastBricksOnY;
+        let generalArrayPositionX = evenArray (minPositionX, maxPositionX, stepX);
+        let generalArrayPositionY = evenArray (minPositionY, maxPositionY, stepY);
+        let maximumNumberOfBricks = bricksOnX * bricksOnY;
+
+        numberOfBricks = Math.min(numberOfBricks, maximumNumberOfBricks);
+        quantityOfBricks = numberOfBricks;
+        for (let i = 0; i < numberOfBricks; i++) {
             let PositionX = null;
             let PositionY = null;
             while (!PositionX) {
-                let searchPositionX = getRandomPosition(50, document.documentElement.clientWidth - (50 + brickWidth));
-                let searchPositionY = getRandomPosition(50, document.documentElement.clientHeight - 200);
-                let resultX = false;
-                let resultY = false;
-                let result = false;
-                arrayPositionX.forEach(function(item) {
-                    if (searchPositionX >= (item - 10 - brickWidth) && searchPositionX <= (item + 10 + brickWidth)) {
-                        resultX = true;
-                    }
-                });
-                arrayPositionY.forEach(function(item) {
-                    if (searchPositionY >= (item - 10 - brickHeight) && searchPositionY <= (item + 10 + brickHeight)) {
-                        resultY = true;
-                    }
-                });
-                console.log(resultX && resultY);
-                if (resultX && resultY) {
-                    result = true;
-                    }
-                if (result) {
-                    continue;
-                }
+                let searchPositionX = getRandomPosition(generalArrayPositionX);
+                let searchPositionY = getRandomPosition(generalArrayPositionY);
+                let indexXY = arrayPositionXY.indexOf(`${searchPositionX} : ${searchPositionY}`);
+                if (indexXY !== -1) {continue;}
                 PositionX = searchPositionX;
                 PositionY = searchPositionY;
+                arrayPositionXY.push(`${PositionX} : ${PositionY}`);
                 arrayPositionX.push(PositionX);
                 arrayPositionY.push(PositionY);
             }
@@ -301,30 +325,25 @@ $(document).ready(function () {
             );
         }
     }
-    createBricks (5);
+    let quantityOfBricks = null;
+    createBricks (30);
+    let score = 0;
 
 
     function checkCollision(objectA, objectB) {
         if (objectA !== objectB) {
             let ball = null;
-            let ball2 = null;
+            // let ball2 = null;
             let wall = null;
             let racket = null;
             let brick = null;
             if (objectA instanceof Ball) {
                 ball = objectA;
-            } else if (objectB instanceof Ball) {
-                ball = objectB;
-            }
-
-            if (objectA instanceof Ball) {
-                ball2 = objectA;
-            } else if (objectB instanceof Ball) {
-                ball2 = objectB;
-            }
-
-            if (objectA instanceof Wall) {
+            } else if (objectA instanceof Wall) {
                 wall = objectA;
+            }
+            if (objectB instanceof Ball) {
+                ball = objectB;
             } else if (objectB instanceof Wall) {
                 wall = objectB;
             }
@@ -341,40 +360,31 @@ $(document).ready(function () {
                 brick = objectB;
             }
 
-            if (ball && brick) {
-                if (
-                    ball.x < brick.x + brick.width &&
-                    ball.x + ball.diametr > brick.x &&
-                    ball.y < brick.y + brick.height &&
-                    ball.diametr + ball.y > brick.y ||
-                    (ball.x + ball.diametr === brick.x ||
-                    ball.x === brick.x + brick.width) &&
-                    ball.y > brick.y &&
-                    ball.y < brick.y + brick.height
-                    ) {
+        if (ball && brick) {
+            if (ball.x < brick.x + brick.width &&
+                ball.x + ball.diametr > brick.x &&
+                ball.y < brick.y + brick.height &&
+                ball.diametr + ball.y > brick.y
+            ) {
+                score ++;
+                let forDelete = document.getElementById(brick.id);
+                forDelete.remove();
+                for (let i = 0; i < objects.length; i++) {
+                    let newString = Object.values(objects[i]);
+                    if (newString.indexOf(brick.id) !== -1) {
+                        objects.splice(i, 1)
+                    }
+                }
+
+                if (ball.y < brick.y + brick.height ||
+                    ball.diametr + ball.y > brick.y) {
+                        ball.invertDirectionY();
+                }
+                else {
                     ball.invertDirectionX();
-                    // objects.splice(0,objects.indexOf(brick));
-                    // brick.remove();
-                }
-
-                if (
-                    ball.x > brick.x &&
-                    ball.x < brick.x + brick.width &&
-                    ball.y === brick.y + brick.height
-                ) {
-                    ball.invertDirectionY();
-                    // objects.splice(0,objects.indexOf(brick));
-                    // brick.remove();
-                }
-
-                if (
-                    ball.x >= brick.x &&
-                    ball.x <= brick.x + brick.width &&
-                    ball.y + ball.diametr === brick.y
-                ) {
-                    ball.invertDirectionY();
                 }
             }
+        }
 
             if (ball && wall) {
                 if (
@@ -402,19 +412,6 @@ $(document).ready(function () {
                     ball.y + ball.diametr === racket.y
                 ) {
                     ball.invertDirectionY();
-                }
-            }
-
-            if (ball && ball2) {
-                console.log (`1= ${ball} '2= ${ball2}`)
-            let dx = (ball.x + ball.diametr / 2) - (ball2.x + ball2.diametr / 2);
-            let dy = (ball.y + ball.diametr / 2) - (ball2.y + ball2.diametr / 2) ;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-                if (
-                    distance < (ball.diametr / 2 + ball2.diametr / 2)
-                ) {
-                    ball.invertDirectionY();
-                    ball2.invertDirectionY();
                 }
             }
         }
@@ -446,7 +443,9 @@ $(document).ready(function () {
         let gameOver = isGameOver();
 
         currentGameStep++;
-        if (currentGameStep < 10000 && !gameOver) {
+        if (quantityOfBricks === score) {
+            alert("ПОБЕДА");
+        } else if (currentGameStep < Infinity && !gameOver) {
             setTimeout(doGameStep, GAME_STEP_DELAY);
         } else {
             alert("Игра закончена");
@@ -455,63 +454,3 @@ $(document).ready(function () {
 
     setTimeout(doGameStep, GAME_STEP_DELAY);
 });
-
-
-
-// function createBricks (number) {
-//     function getRandomPosition(min, max) {
-//         min = Number(min);
-//         max = Number(max);
-//         if (isNaN(min) || isNaN(max)) {
-//             return null;
-//         }
-//         let result = 0;
-//         let temp = Math.random();
-        
-//         result = min + (max - min) * temp;
-//         result = Math.floor(result);
-    
-//         return result;
-//     }
-//     let arrayPositionX = [];
-//     let arrayPositionY = [];
-//     let brickWidth = 60;
-//     let bricksHeight = 30;
-//     for (let i = 0; i < number; i++) {
-//         let PositionX = null;
-//         while (!PositionX) {
-//             let searchPositionX = getRandomPosition(50, document.documentElement.clientWidth - (50 + brickWidth));
-//             let result = false;
-//             arrayPositionX.forEach(function(item) {
-//                 if (searchPositionX >= (item - 10 - brickWidth) && searchPositionX <= (item + 10 + brickWidth)) {
-//                 result = true;
-//                 }
-//             });
-//             if (result) {
-//                 continue;
-//             }
-//             PositionX = searchPositionX;
-//             arrayPositionX.push(PositionX);
-//         }
-//         console.log(arrayPositionX);
-//         let PositionY = null;
-//         while (!PositionY) {
-//             let searchPositionY = getRandomPosition(50, document.documentElement.clientHeight - 200);
-//             if (arrayPositionY.indexOf(searchPositionY) !== -1) {
-//                 continue;
-//             }
-//             PositionY = searchPositionY;
-//             // console.log('y= ' + PositionY);
-//             arrayPositionY.push(PositionY);
-//         }
-//         objects.push(
-//             new Brick({
-//                 x: PositionX,
-//                 y: PositionY,
-//                 width: brickWidth,
-//                 height: bricksHeight,
-//                 color: "mediumvioletred",
-//             })
-//         );
-//     }
-// }
