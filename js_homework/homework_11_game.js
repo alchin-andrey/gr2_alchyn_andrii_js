@@ -139,9 +139,17 @@ $(document).ready(function () {
 
         this.doMove = function (event) {
             if ((event.x < objects[3].x - (this.width / 2))
-            && event.x > objects[3].width + (this.width / 2))
+            && event.x > objects[3].width + (this.width / 2)) {
             this.x = event.x - (this.width / 2);
+            }
         };
+
+        this. doMoveTouch = function(event) {
+            if ((event.touches[0].clientX <= objects[3].x - (this.width / 2))
+                && event.touches[0].clientX >= objects[3].width + (this.width / 2)) {
+                this.x = event.touches[0].clientX - (this.width / 2);
+            }
+        }
 
         this.live = function () {
             this.renderState();
@@ -245,7 +253,9 @@ $(document).ready(function () {
         color: "red",
     });
     document.documentElement.onmousemove = r.doMove.bind(r);
+    document.documentElement.ontouchmove = r.doMoveTouch.bind(r);
     objects.push(r);
+
 
     function createBricks (numberOfBricks) {
         function evenArray(min, max, step) {
