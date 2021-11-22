@@ -7,9 +7,9 @@ let x1 = 500;
 let x2 = 888;
 
 // Вариант №1 (более правильный)
-console.log(evenArray());
+console.log(evenArray(x1, x2));
 
-function evenArray() {
+function evenArray(x1, x2) {
     let array = [];
     for (let i = x1; i <= x2; i += 1) {
         if (i % 2 === 0) array.push(i);
@@ -18,9 +18,9 @@ function evenArray() {
 }
 
 // Вариант №2 (только начиная с четного, как в этой задаче)
-console.log(evenArray2());
+console.log(evenArray2(x1, x2));
 
-function evenArray2() {
+function evenArray2(x1, x2) {
     let array = [];
     for (let i = x1; i <= x2; i += 2) 
     array.push(i);
